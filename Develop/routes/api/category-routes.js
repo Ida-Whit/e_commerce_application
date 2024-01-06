@@ -7,12 +7,13 @@ router.get('/', async (req, res) => {
   // find all categories
   // be sure to include its associated Products
   try {
-    const products = await Category.findAll({
+    const category = await Category.findAll({
       include: {
-        model: Product
+        model: Product,
+        attributes: ['id', 'product_id', 'tag_id']
       }
     })
-    res.json(products);
+    res.json(category);
   } catch (err) {
   console.error(err);
   res.status(500).json({ error: 'Internal Server Error'});
@@ -24,16 +25,17 @@ router.get('/:id', async (req, res) => {
   // find one category by its `id` value
   // be sure to include its associated Products
   try{  
-    const products = await Category.findOne({
+    const category = await Category.findOne({
       where: {
         id: req.params.id
       },
       include: {
-        model: Product
+        model: Product,
+        attributes: ['id', 'product_id', 'tag_id']
       }
     });
-    if (products) {
-      res.json(products);
+    if (category) {
+      res.json(category);
     } else {
       res.status(404).json({ error: 'Category not found' });
     }
@@ -46,10 +48,11 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   // create a new category
   try{  
-    const products = await Category.create({
-      category_name: req.body
+    const category = await Category.create({
+      id: req.body.id,
+      category_name: req.body.category_name
     });
-    res.status(201).json(products);
+    res.status(201).json(category);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal Server Error'});
