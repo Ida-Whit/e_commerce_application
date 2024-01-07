@@ -26,14 +26,13 @@ router.get('/:id', async (req, res) => {
   // find a single tag by its `id`
   // be sure to include its associated Product data
   try{
-    const tag = await Tag.findByPk({
+    const tag = await Tag.findOne({
       where: {
         id: req.params.id
       },
       include: {
         model: Product,
-        attributes: ['id', 'product_name', 'price', 'stock'],
-        through: {attributes: []}
+        attributes: ['id', 'product_name', 'price', 'stock']
       }
     });
     if (tag) {
@@ -64,14 +63,17 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
   // update a tag's name by its `id` value
-  const tag_name = req.body
   try{
-    const tagToUpdate = Tag.findByPk(req.params.id);
-    if(!tagToUpdate) {
+    const tag = await Tag.update({
+      tag_name: req.body.tag_name,
+    },
+    {
+      where: {id: req.params.id},
+    })
+    if(!tag) {
       return res.status(404).json({ error: 'Tag not found' });
     };
-    await tagToUpdate.update({ tag_name });
-    res.json(tagToUpdate);
+    res.json(tag);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal Server Error' });
