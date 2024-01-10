@@ -59,30 +59,11 @@ router.post('/', async (req, res) => {
   };
   });
 
-/*router.put('/:id', async (req, res) => {
-  // update a tag's name by its `id` value
-  try{
-    const tag = await Tag.update({
-      tag_name: req.body.tag_name,
-    },
-    {
-      where: {id: req.params.id},
-    })
-    if(!tag) {
-      return res.status(404).json({ error: 'Tag not found' });
-    };
-    res.json(tag);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});*/
-
 router.put('/:id', async (req, res) => {
   // update a category by its `id` value
   try{
     const category = await Category.update({
-      category_name: req.params.category_name
+      category_name: req.body.category_name
     },
     {
       where: {id: req.params.id},
