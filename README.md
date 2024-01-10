@@ -34,5 +34,7 @@ N/A
 ## Authors and acknowledgment
 This program was written by myself, Ida Whitcomb. With starter code provided by UNH Coding Bootcamp staff and additional help provided by the learning assistants at Ask BCS.
 
+Starter code consists of everything in the following folders: config, db, seeds. It also includes the server.js file and the package.json. Import and export code for the models was provided as well as the routes/index.js and routes/api/index.js code. Create new product and update existing product routes were provided as well.
+
 ## Project status
 This project is complete.
